@@ -6,6 +6,7 @@ import React, { Suspense } from 'react'
 import { AlertCircle } from 'lucide-react'
 import { EmptyState } from '@/components/EmptyState'
 import { Metadata } from 'next'
+import CreateWorkflowDialog from './_components/CreateWorkflowDialog'
 
 export const metadata: Metadata = {
   title: 'Design your workflows'
@@ -14,11 +15,12 @@ export const metadata: Metadata = {
 export default function WorkflowsPage() {
   return (
     <div className='flex h-full flex-1 flex-col'>
-      <div className='flex justify-between'>
+      <div className='flex items-center justify-between'>
         <div className='flex flex-col'>
           <h1 className='text-3xl font-bold'>Workflows</h1>
           <p className='text-muted-foreground'>Manage your worflows</p>
         </div>
+        <CreateWorkflowDialog />
       </div>
       <div className='h-full py-6'>
         <Suspense fallback={<UserWorkflowsSkeleton />}>
@@ -55,13 +57,14 @@ async function UserWorkflows() {
   }
   if (workflows.length === 0) {
     return (
-      <EmptyState
-        title='You do not have any Workflows created'
-        description='You currently dont have any Workflows. Please create some so that you can
+      <div className='flex flex-col items-center space-y-5'>
+        <EmptyState
+          title='You do not have any Workflows created'
+          description='You currently do not have any Workflows. Please create some so that you can
 see them right here!'
-        buttonText='Create Workflow'
-        href='/workflows/new'
-      />
+        />
+        <CreateWorkflowDialog triggerText='Create yout first workflow' />
+      </div>
     )
   }
 
