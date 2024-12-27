@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { AppProviders } from '@/components/providers/AppProviders'
+
 import { ClerkProvider } from '@clerk/nextjs'
+import { Toaster } from '@/components/ui/sonner'
+import ReactQueryProvider from '@/components/providers/ReactQueryProvider'
+import { ThemeProvider } from 'next-themes'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -42,7 +45,17 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <AppProviders>{children}</AppProviders>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem={true}
+            disableTransitionOnChange
+          >
+            <ReactQueryProvider>
+              <div>{children}</div>
+            </ReactQueryProvider>
+            <Toaster richColors />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

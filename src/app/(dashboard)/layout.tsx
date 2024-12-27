@@ -1,8 +1,9 @@
 import BreadcrumbHeader from '@/components/BreadcrumbHeader'
 import DesktopSidebar from '@/components/Sidebar'
 import { ThemeModeToggle } from '@/components/ThemeModeToggle'
-import { Breadcrumb } from '@/components/ui/breadcrumb'
+
 import { Separator } from '@/components/ui/separator'
+
 import { SignedIn, UserButton } from '@clerk/nextjs'
 
 export default function DashboardLayout({
