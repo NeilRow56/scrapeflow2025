@@ -7,6 +7,7 @@ import { AlertCircle } from 'lucide-react'
 import { EmptyState } from '@/components/EmptyState'
 import { Metadata } from 'next'
 import CreateWorkflowDialog from './_components/CreateWorkflowDialog'
+import WorkflowCard from './_components/WorkflowCard'
 
 export const metadata: Metadata = {
   title: 'Design your workflows'
@@ -68,5 +69,11 @@ see them right here!'
     )
   }
 
-  return <div></div>
+  return (
+    <div className='grid grid-cols-1 gap-4'>
+      {workflows.map(workflow => (
+        <WorkflowCard key={workflow.id} workflow={workflow} />
+      ))}
+    </div>
+  )
 }

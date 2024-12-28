@@ -44,32 +44,34 @@ export default function CreateWorkflowDialog({
   })
 
   const { mutate, isPending } = useMutation({
-    mutationFn: createWorkflow,
-    onSuccess: () => {
-      toast.error('Workflow not created ', {
-        id: 'create-workflow'
-      })
-    },
-    onError: () => {
-      toast.success('Workflow created successfully 🎉', {
-        id: 'create-workflow'
-      })
-    }
+    mutationFn: createWorkflow
+    // onSuccess: () => {
+    //   toast.error('Workflow created successfully', {
+    //     id: 'create-workflow'
+    //   })
+    // }
+    // onError: () => {
+    //   toast.error('Workflow not created - name already be un use  ', {
+    //     id: 'create-workflow'
+    //   })
+    // }
   })
 
   const onSubmit = useCallback(
     (values: createWorkflowSchemaType) => {
-      // toast.loading('Creating workflow...'),
-      //   {
-      //     id: 'create-workflow'
-      //   }
       mutate(values)
     },
     [mutate]
   )
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={open => {
+        form.reset()
+        setOpen(open)
+      }}
+    >
       <DialogTrigger asChild>
         <Button>{triggerText ?? 'Create workflow'}</Button>
       </DialogTrigger>
