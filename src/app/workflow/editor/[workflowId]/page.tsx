@@ -1,6 +1,8 @@
 import db from '@/lib/db'
+import { waitFor } from '@/lib/helper/waitFor'
 import { auth } from '@clerk/nextjs/server'
 import React from 'react'
+import Editor from '../../_components/Editor'
 
 export default async function WorkflowEditorPage({
   params
@@ -12,6 +14,8 @@ export default async function WorkflowEditorPage({
   const { userId } = await auth()
   if (!userId) return <div>Unauthenticated</div>
 
+  //   await waitFor(5000)
+
   const workflow = await db.workflow.findUnique({
     where: {
       id: workflowId,
@@ -21,5 +25,5 @@ export default async function WorkflowEditorPage({
   if (!workflow) {
     return <div>Workflow not found</div>
   }
-  return <pre>{JSON.stringify(workflow, null, 4)}</pre>
+  return <Editor workflow={workflow} />
 }
